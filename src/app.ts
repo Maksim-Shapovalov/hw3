@@ -5,7 +5,7 @@ import bodyParser from "body-parser";
 import {postsRepositories} from "./repositories/posts-repositories";
 import * as string_decoder from "string_decoder";
 import {blogsRouter} from "./router/blogs-router";
-import {db} from "./repositories/blogs-repositories";
+import {blogsRepositories, db} from "./repositories/blogs-repositories";
 
 export const app = express();
 const parserMiddleware = bodyParser;
@@ -19,15 +19,11 @@ blogsRouter.get('/', (req: Request, res: Response)=>{
 })
 
 blogsRouter.post('/', (req: Request, res: Response) => {
-    const title = req.body.title
-    const shortDescription = req.body.shortDescription
-    const content = req.body.content
-    const blogId = req.body.blogId
-
+    res.status(HTTP_STATUS.OK_200).send(blogsRepositories.BlogsNew)
 })
 
-blogsRouter.get('/:id', () => {
-
+blogsRouter.get('/:id', (req: Request, res: Response) => {
+    res.status(HTTP_STATUS.OK_200).send(blogsRepositories.findBlogById(req.params.id));
 })
 
 
