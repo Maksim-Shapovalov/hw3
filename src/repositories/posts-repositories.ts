@@ -1,26 +1,52 @@
-import {infoToPost} from "../objectType/postsType";
-import {create} from "node:domain";
-import {db} from "./dataBase";
-
-
-
-
+import {db} from "./DB";
 export const postsRepositories = {
 
-    AllPostsReturn(title: string) {
-        if (title){
-            return db.filter(f => f.title.indexOf(title))
+    AllPost(name: string ) {
+        if (name){
+            return db.blogs.filter(f => f.name.indexOf(name))
         }else{
-            return db
+            return db.blogs
         }
     },
 
 
-    PostingNem(id: string, name: string, description: string, blogId: string){
-        const newPost = {
-            content:
+    NewPost(id:string, name: string, description: string, websiteUrl: string){
+        const newBlog = {
+            id: new Date().toISOString(),
+            name,
+            description,
+            websiteUrl
         }
-        db.push(newPost)
-        return newPost
+        db.blogs.push(newBlog)
+        return newBlog
+    },
+
+    findPostById(id: string){
+        return db.blogs.find(b => b.id === id)
+
+    },
+
+    updatePostById(id: string, name: string, description: string, websiteUrl: string){
+        let blog = db.blogs.find(b => b.id === id)
+        if (blog) {
+            blog.name = name
+            blog.description = description
+            blog.websiteUrl = websiteUrl
+            return true
+        } else {
+            return false
+        }
+
+
+    },
+    delPostById(id: string) {
+        for (let i = 0; i < db.blogs.length; i++){
+            if (db.blogs[i].id === id) {
+                db.blogs.slice(i,1)
+                return true
+            }
+        }
+        return false
     }
+
 }

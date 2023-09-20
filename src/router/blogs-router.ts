@@ -1,39 +1,29 @@
-import {app} from "../app";
 import {Request, Response, Router} from "express";
-import {HTTP_STATUS} from "../HTTP_STASUS";
-import {ValidationErrorsType} from "../objectType/errorsType";
 import {blogsRepositories} from "../repositories/blogs-repositories";
 import {body, query} from "express-validator";
+import {app, HTTP_STATUS} from "../index";
+import {ValidationBlog} from "../middlewares/blogs-middleware/blog-input-validation-middleware";
 
 
 
 
 
 export const blogsRouter = Router();
+app.use('blogs', blogsRouter)
 
-const chekId = body('id').trim().isString()
-const chekName = body('name').trim().isLength({min: 2, max: 15}).isString()
-const chekDesc = body('description').trim().isLength({min: 0, max: 500}).isString()
-const chekWebUrl = body('blogId').trim().isLength({min: 1, max: 100}).isString().isURL({
-        protocols: ['^https://([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+(\/[a-zA-Z0-9_-]+)*\/?$'],
-        require_valid_protocol: true
-    })
-
-
-
-app.get('/', (req: Request, res: Response)=>{
-    res.status(HTTP_STATUS.OK_200).send(blogsRepositories.AllBlogsReturn);
+blogsRouter.get('/', (req: Request, res: Response)=>{
+    res.status(HTTP_STATUS.OK_200).send(blogsRepositories.AllBlogs);
 })
 
-app.post('/',
-    chekId,chekName,chekDesc,chekWebUrl,
+blogsRouter.post('/',
+    ValidationBlog,
     (req: Request, res: Response) => {
     const newBlog = blogsRepositories.BlogsNew(req.body.id, req.body.name,req.body.description,req.body.websiteUrl)
     res.status(201).send(newBlog)
 })
 
-app.get('/:id',
-    chekId,chekName,chekDesc,chekWebUrl,
+blogsRouter.get('/:id',
+    ValidationBlog,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.findBlogById(req.params.id)
     if (blog){
@@ -42,24 +32,22 @@ app.get('/:id',
       res.sendStatus(404)
     }
 })
-app.put('/:id',
-    chekId,chekName,chekDesc,chekWebUrl,
+blogsRouter.put('/:id',
+    ValidationBlog,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)
-    if (blog === 404 ){
-        res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
-    }
-    if (blog === 400) {
-        //TODO Write error
-    }
+
 
 
     res.status(HTTP_STATUS.NO_CONTENT_204).send(blog)
 })
 
-app.delete('/:id',
-    chekId,
+blogsRouter.delete('/:id',
+    ValidationBlog,
     (req: Request, res: Response) => {
-    const delBlog = blogsRepositories.delBlogsById(req.params.id)
+    const deleted = blogsRepositories.delBlogsById(req.params.id)
+    if (!deleted){
+        res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+    }
 })
 

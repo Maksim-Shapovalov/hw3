@@ -1,33 +1,8 @@
-import {HTTP_STATUS} from "../HTTP_STASUS";
-
-
-export let db = {
-    blogs: [
-        {
-            id: "string",
-            name: "string",
-            description: "string",
-            websiteUrl: "string",
-        }
-    ],
-    posts: [
-        {
-            id: "string",
-            title: "string",
-            shortDescription: "string",
-            content: "string",
-            blogId: "string",
-            blogName: "string",
-        }
-    ]
-}
-
-
-
-
+import {db} from "./DB";
+import {HTTP_STATUS} from "../index";
 export const blogsRepositories = {
 
-    AllBlogsReturn(name: string) {
+    AllBlogs(name: string ) {
         if (name){
             return db.blogs.filter(f => f.name.indexOf(name))
         }else{
@@ -48,8 +23,8 @@ export const blogsRepositories = {
     },
 
     findBlogById(id: string){
-        let blog = db.blogs.find(b => b.id === id)
-        return blog
+        return db.blogs.find(b => b.id === id)
+
     },
 
     updateBlogById(id: string, name: string, description: string, websiteUrl: string){
@@ -58,20 +33,21 @@ export const blogsRepositories = {
             blog.name = name
             blog.description = description
             blog.websiteUrl = websiteUrl
-            return blog
+            return true
         } else {
-            return HTTP_STATUS.NOT_FOUND_404
+            return false
         }
+
 
     },
     delBlogsById(id: string) {
         for (let i = 0; i < db.blogs.length; i++){
             if (db.blogs[i].id === id) {
                 db.blogs.slice(i,1)
-                return HTTP_STATUS.NO_CONTENT_204
+                return true
             }
         }
-        return HTTP_STATUS.NOT_FOUND_404
+        return false
     }
 
 }
