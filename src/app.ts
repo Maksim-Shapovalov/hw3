@@ -14,26 +14,19 @@ app.use("/posts",postsRouter);
 app.use(parserMiddleware);
 app.use("/blogs",blogsRouter);
 
-postsRouter.get('/', (req: Request, res: Response)=>{
+blogsRouter.get('/', (req: Request, res: Response)=>{
     res.status(HTTP_STATUS.OK_200).send(postsRepositories.AllPostsReturn);
 })
 
-postsRouter.post('/', (req: Request, res: Response) => {
+blogsRouter.post('/', (req: Request, res: Response) => {
     const title = req.body.title
     const shortDescription = req.body.shortDescription
     const content = req.body.content
     const blogId = req.body.blogId
 
-
-
-    if (!title || title.trim()) {
-
-    }
-
-
 })
 
-postsRouter.get('/:id', () => {
+blogsRouter.get('/:id', () => {
 
 })
 
