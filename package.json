@@ -13,5 +13,11 @@
   "name": "home-work2",
   "version": "1.0.0",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "scripts": {
+    "watch": "tsc -w",
+    "dev": "nodemon --inspect dist/index",
+    "test": "jest -i",
+    "build": "tsc"
+  }
 }
