@@ -1,9 +1,7 @@
 import {Request, Response, Router} from "express";
 import {app, HTTP_STATUS} from "../index";
 import {postsRepositories} from "../repositories/posts-repositories";
-import {ValidationBlog} from "../middlewares/blogs-middleware/blog-input-validation-middleware";
 import {blogsRepositories} from "../repositories/blogs-repositories";
-import {blogsRouter} from "./blogs-router";
 import {ValidationPosts} from "../middlewares/posts-middleware/post-input-validation-middleware";
 import {authGuardMiddleware} from "../middlewares/admin-middleware";
 import {ErrorMiddleware} from "../middlewares/error-middleware";
@@ -48,11 +46,11 @@ postsRouter.put('/:id',
     authGuardMiddleware,
     ErrorMiddleware,
     (req: Request, res: Response) => {
-        let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)
+        let post = postsRepositories.updatePostById(req.params.id, req.body.title, req.body.shortDescription,req.body.content, req.body.blogId,req.body.blogName)
 
 
 
-        res.status(HTTP_STATUS.NO_CONTENT_204).send(blog)
+        res.status(HTTP_STATUS.NO_CONTENT_204).send(post)
     })
 
 postsRouter.delete('/:id',
@@ -61,5 +59,9 @@ postsRouter.delete('/:id',
     ErrorMiddleware,
     (req: Request, res: Response) => {
         const deleted = postsRepositories.delPostById(req.params.id)
+        if (!deleted){
+            res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+        }
+        res.status(HTTP_STATUS.NO_CONTENT_204)
     })
 

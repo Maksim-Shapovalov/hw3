@@ -11,24 +11,15 @@ export const HTTP_STATUS = {
     NOT_FOUND_404: 404
 }
 
+
 export const app = express();
 const parserMiddleware = bodyParser;
+
+
 export const port = process.env.PORT || 3000;
 app.use(parserMiddleware);
-
 
 
 app.listen(port, () =>{
     console.log(`Example app listening on port ${port}`)
 })
-
-
-//import {NextFunction, Request ,Response} from "express";
-// import {validationResult} from "express-validator";
-//
-// export const inputValidationMiddleware = (req: Request, res: Response, next: NextFunction) => {
-//     const errors = validationResult(req)
-//     if(!errors.isEmpty()){
-//         return res.status(400).json({message: errors.array()})
-//     }
-// }

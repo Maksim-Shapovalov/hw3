@@ -26,12 +26,14 @@ export const postsRepositories = {
 
     },
 
-    updatePostById(id: string, name: string, description: string, websiteUrl: string){
-        let blog = db.blogs.find(b => b.id === id)
-        if (blog) {
-            blog.name = name
-            blog.description = description
-            blog.websiteUrl = websiteUrl
+    updatePostById(id: string, title: string, shortDescription:string, content: string, blogId: string, blogName: string,){
+        let post = db.posts.find(b => b.id === id)
+        if (post) {
+            post.title = title
+            post.shortDescription = shortDescription
+            post.content = content
+            post.blogId = blogId
+            post.blogName = blogName
             return true
         } else {
             return false
