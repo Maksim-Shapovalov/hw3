@@ -9,14 +9,16 @@ export const postsRepositories = {
 
 
     NewPost(id:string, title: string, shortDescription:string, content: string, blogId: string){
+        const blog = db.blogs.find(b => b.id === blogId)
         const newPosts = {
             id: new Date().toISOString(),
             title,
             shortDescription,
             content,
-            blogId
-
+            blogId,
+            blogName: blog!.name
         }
+
         db.posts.push(newPosts)
         return newPosts
     },
