@@ -4,6 +4,8 @@ import {postsRepositories} from "../repositories/posts-repositories";
 import {ValidationBlog} from "../middlewares/blogs-middleware/blog-input-validation-middleware";
 import {blogsRepositories} from "../repositories/blogs-repositories";
 import {blogsRouter} from "./blogs-router";
+import {ValidationPosts} from "../middlewares/posts-middleware/post-input-validation-middleware";
+import {authGuardMiddleware} from "../middlewares/admin-middleware";
 
 
 
@@ -15,13 +17,21 @@ import {blogsRouter} from "./blogs-router";
 export const postsRouter = Router();
 app.use('posts',postsRouter)
 postsRouter.get('/',
-
+    ValidationPosts,
     (req: Request, res: Response)=>{
     res.status(HTTP_STATUS.OK_200).send(postsRepositories.AllPost);
 })
 
+postsRouter.post('/',
+    ValidationPosts,
+    authGuardMiddleware,
+    (req: Request, res: Response) => {
+        const newBlog = postsRepositories.NewPost(req.body.id, req.body.name,req.body.description,req.body.websiteUrl)
+        res.status(201).send(newBlog)
+    })
+
 postsRouter.get('/:id',
-    ValidationBlog,
+    ValidationPosts,
     (req: Request, res: Response) => {
         let blog = blogsRepositories.findBlogById(req.params.id)
         if (blog){
@@ -31,7 +41,8 @@ postsRouter.get('/:id',
         }
     })
 postsRouter.put('/:id',
-    ValidationBlog,
+    ValidationPosts,
+    authGuardMiddleware,
     (req: Request, res: Response) => {
         let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)
 
@@ -41,7 +52,8 @@ postsRouter.put('/:id',
     })
 
 postsRouter.delete('/:id',
-    ValidationBlog,
+    authGuardMiddleware,
+    ValidationPosts,
     (req: Request, res: Response) => {
         const deleted = postsRepositories.delPostById(req.params.id)
     })

@@ -1,7 +1,7 @@
 import {body} from "express-validator";
 import {blogsRepositories} from "../../repositories/blogs-repositories";
 
-export const validationPosts = () => {
+export const ValidationPosts = () => {
     body('title').trim().isString().notEmpty().isLength({min:1,max:30})
     body('shortDescription')
         .trim()
