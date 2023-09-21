@@ -12,6 +12,7 @@ export const blogsRepositories = {
 
 
     BlogsNew(name: string, description: string, websiteUrl: string){
+        console.log('create blog')
         const newBlog = {
             id: new Date().toISOString(),
             name,

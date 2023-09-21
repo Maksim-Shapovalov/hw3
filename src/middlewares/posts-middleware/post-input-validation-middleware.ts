@@ -1,20 +1,19 @@
 import {body} from "express-validator";
 import {blogsRepositories} from "../../repositories/blogs-repositories";
 
-export const ValidationPosts = () => {
-    body('title').trim().isString().notEmpty().isLength({min:1,max:30})
+export const ValidationPosts = () => ([
+    body('title').trim().isString().notEmpty().isLength({min:1,max:30}),
     body('shortDescription')
         .trim()
         .notEmpty()
         .isString()
-        .isLength({min:1,max:100})
+        .isLength({min:1,max:100}),
     body('content')
         .trim()
         .notEmpty()
         .isLength({min:1 , max:1000})
         .isString()
-        .withMessage('invalid content')
-
+        .withMessage('invalid content'),
     body('blogId')
         .trim()
         .custom((value) => {
@@ -27,8 +26,5 @@ export const ValidationPosts = () => {
     })
         .notEmpty()
         .isString()
-        .withMessage('invalid blogId')
-
-
-
-}
+        .withMessage('invalid blogId')]
+)

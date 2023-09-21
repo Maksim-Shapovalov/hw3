@@ -1,8 +1,8 @@
 import {body} from "express-validator";
 
 
-export const ValidationBlog = () => {
-    body('name')
+export const ValidationBlog = () => (
+    [body('name')
         .trim()
         .isString()
         .isLength({min:1,max:15})
@@ -12,13 +12,13 @@ export const ValidationBlog = () => {
         .notEmpty()
         .trim()
         .isString()
-        .isLength({min:15,max:15})
+        .isLength({min:1,max:500})
         .withMessage('Invalid description'),
     body('websiteUrl')
         .trim()
         .isString()
-        .isLength({min:1,max:15})
+        .isLength({min:1,max:100})
         .matches('^https://([a-zA-Z0-9_-]+\.)+[a-zA-Z0-9_-]+(\/[a-zA-Z0-9_-]+)*\/?$')
-        .withMessage('Invalid websiteUrl')
+        .withMessage('Invalid websiteUrl')]
 
-}
+)

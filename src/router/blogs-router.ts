@@ -20,9 +20,10 @@ blogsRouter.get('/', (req: Request, res: Response) => {
 
 blogsRouter.post('/',
     authGuardMiddleware,
-    ValidationBlog,
+    ValidationBlog(),
     ErrorMiddleware,
     (req: Request, res: Response) => {
+        console.log('blog post')
     const newBlog = blogsRepositories.BlogsNew(req.body.name, req.body.description, req.body.websiteUrl)
 
     res.status(201).send(newBlog)
@@ -39,7 +40,7 @@ blogsRouter.get('/:id',
 })
 blogsRouter.put('/:id',
     authGuardMiddleware,
-    ValidationBlog,
+    ValidationBlog(),
     ErrorMiddleware,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)

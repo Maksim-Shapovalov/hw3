@@ -23,7 +23,7 @@ postsRouter.get('/',
 
 postsRouter.post('/',
     authGuardMiddleware,
-    ValidationPosts,
+    ValidationPosts(),
     ErrorMiddleware,
     (req: Request, res: Response) => {
         const newBlog = postsRepositories.NewPost(req.body.title,req.body.shortDescription,req.body.content, req.body.blogId,)
@@ -41,7 +41,7 @@ postsRouter.get('/:id',
     })
 postsRouter.put('/:id',
     authGuardMiddleware,
-    ValidationPosts,
+    ValidationPosts(),
     ErrorMiddleware,
     (req: Request, res: Response) => {
         let post = postsRepositories.updatePostById(req.params.id, req.body.title, req.body.shortDescription,req.body.content, req.body.blogId)

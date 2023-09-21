@@ -11,11 +11,16 @@ export const authGuardMiddleware = (req: Request, res: Response , next: NextFunc
         return
     }
 
-    const splitHeader = authHeader.split('')[1]
+    const splitHeader = authHeader.split(' ')[1]
+
+    console.log(splitHeader, 'splitHeader')
     const enCodeHeader = atob(splitHeader)
 
     if (enCodeHeader !== expectedAuthHeader){
         res.sendStatus(HTTP_STATUS.UNAUTHORIZED_401)
+        return
     }
-    return next()
+
+    console.log('auth')
+    next()
 }
