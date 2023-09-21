@@ -18,7 +18,7 @@ export const postsRouter = Router();
 postsRouter.get('/',
     (req: Request, res: Response)=>{
     const posts = postsRepositories.AllPost()
-    return res.status(HTTP_STATUS.OK_200).send(posts);
+        res.status(HTTP_STATUS.OK_200).send(posts);
 })
 
 postsRouter.post('/',
@@ -27,16 +27,16 @@ postsRouter.post('/',
     ErrorMiddleware,
     (req: Request, res: Response) => {
         const newBlog = postsRepositories.NewPost(req.body.id, req.body.title,req.body.shortDescription,req.body.content, req.body.blogId,)
-       return  res.status(201).send(newBlog)
+        res.status(201).send(newBlog)
     })
 
 postsRouter.get('/:id',
     (req: Request, res: Response) => {
         let blog = blogsRepositories.findBlogById(req.params.id)
         if (blog){
-            return res.status(200).send(blog)
+            res.status(200).send(blog)
         } else {
-            return res.sendStatus(404)
+            res.sendStatus(404)
         }
     })
 postsRouter.put('/:id',
@@ -48,15 +48,15 @@ postsRouter.put('/:id',
 
 
 
-        return res.status(HTTP_STATUS.NO_CONTENT_204).send(post)
+        res.status(HTTP_STATUS.NO_CONTENT_204).send(post)
     })
 
 postsRouter.delete('/:id',
     (req: Request, res: Response) => {
         const deleted = postsRepositories.delPostById(req.params.id)
         if (!deleted){
-           return res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+            res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
         }
-        return res.status(HTTP_STATUS.NO_CONTENT_204)
+        res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
     })
 
