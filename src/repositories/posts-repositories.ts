@@ -12,7 +12,7 @@ export const postsRepositories = {
         const blog = db.blogs.find(b => b.id === blogId)
 
         const newPosts = {
-            id: new Date().toISOString(),
+            id: (+new Date()).toString(),
             title,
             shortDescription,
             content,
@@ -44,13 +44,14 @@ export const postsRepositories = {
 
     },
     delPostById(id: string) {
-        for (let i = 0; i < db.blogs.length; i++){
-            if (db.posts[i].id === id) {
-                db.posts.slice(i,1)
-                return true
-            }
+        const postIndex = db.posts.findIndex(p => p.id === id)
+
+        if(postIndex === -1){
+            return false
         }
-        return false
+
+        db.posts.splice(postIndex, 1)
+        return true
     }
 
 }

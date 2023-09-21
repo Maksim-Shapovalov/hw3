@@ -14,7 +14,7 @@ export const blogsRepositories = {
     BlogsNew(name: string, description: string, websiteUrl: string){
         console.log('create blog')
         const newBlog = {
-            id: new Date().toISOString(),
+            id: (+new Date()).toString(),
             name,
             description,
             websiteUrl
@@ -42,13 +42,14 @@ export const blogsRepositories = {
 
     },
     delBlogsById(id: string) {
-        for (let i = 0; i < db.blogs.length; i++){
-            if (db.blogs[i].id === id) {
-                db.blogs.slice(i,1)
-                return true
-            }
+        const blogIndex = db.blogs.findIndex((b) => b.id === id)
+
+        if(blogIndex === -1){
+            return false
         }
-        return false
+
+        db.blogs.splice(blogIndex, 1)
+        return true
     }
 
 }

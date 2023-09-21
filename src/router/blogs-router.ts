@@ -54,6 +54,9 @@ blogsRouter.delete('/:id',
     const deleted = blogsRepositories.delBlogsById(req.params.id)
     if (!deleted){
         res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+        return
     }
+
+    res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
 })
 

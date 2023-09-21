@@ -32,9 +32,9 @@ postsRouter.post('/',
 
 postsRouter.get('/:id',
     (req: Request, res: Response) => {
-        let blog = blogsRepositories.findBlogById(req.params.id)
-        if (blog){
-            res.status(200).send(blog)
+        let post = postsRepositories.findPostById(req.params.id)
+        if (post){
+            res.status(200).send(post)
         } else {
             res.sendStatus(404)
         }
@@ -56,7 +56,9 @@ postsRouter.delete('/:id',
         const deleted = postsRepositories.delPostById(req.params.id)
         if (!deleted){
             res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+            return
         }
+
         res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
     })
 
