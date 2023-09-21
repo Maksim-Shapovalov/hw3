@@ -17,18 +17,17 @@ export const ValidationPosts = () => {
 
     body('blogId')
         .trim()
-        .custom((value) => {
-        const blogExist = blogsRepositories.findBlogById(value)
-
-        if (!blogExist){
-            throw new Error('Blog not exist')
-        }
-        return true
-    })
+    //     .custom((value) => {
+    //     const blogExist = blogsRepositories.findBlogById(value)
+    //
+    //     if (!blogExist){
+    //         throw new Error('Blog not exist')
+    //     }
+    //     return true
+    // })
         .notEmpty()
         .isString()
         .withMessage('invalid blogId')
-    body('blogName').trim()
 
 
 
