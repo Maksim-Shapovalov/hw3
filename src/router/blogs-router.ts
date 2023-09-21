@@ -5,6 +5,7 @@ import { HTTP_STATUS} from "../index";
 import {ValidationBlog} from "../middlewares/blogs-middleware/blog-input-validation-middleware";
 import {authGuardMiddleware} from "../middlewares/admin-middleware";
 import {ErrorMiddleware} from "../middlewares/error-middleware";
+import {enBlogType} from "../middlewares/test/blogType";
 
 
 
@@ -44,7 +45,9 @@ blogsRouter.put('/:id',
     ErrorMiddleware,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)
-
+    if (!blog){
+        res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+    }
         res.status(HTTP_STATUS.NO_CONTENT_204).send(blog)
 })
 

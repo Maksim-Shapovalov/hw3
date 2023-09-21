@@ -45,7 +45,9 @@ postsRouter.put('/:id',
     ErrorMiddleware,
     (req: Request, res: Response) => {
         let post = postsRepositories.updatePostById(req.params.id, req.body.title, req.body.shortDescription,req.body.content, req.body.blogId)
-
+        if (!post){
+            res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+        }
 
 
         res.status(HTTP_STATUS.NO_CONTENT_204).send(post)
