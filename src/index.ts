@@ -18,7 +18,7 @@ const parserMiddleware = bodyParser;
 
 export const port = process.env.PORT || 3000;
 app.use(parserMiddleware);
-
+app.use(express.json())
 
 app.listen(port, () =>{
     console.log(`Example app listening on port ${port}`)
