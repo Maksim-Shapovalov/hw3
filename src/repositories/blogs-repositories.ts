@@ -11,7 +11,7 @@ export const blogsRepositories = {
     },
 
 
-    BlogsNew(id:string, name: string, description: string, websiteUrl: string){
+    BlogsNew(name: string, description: string, websiteUrl: string){
         const newBlog = {
             id: new Date().toISOString(),
             name,

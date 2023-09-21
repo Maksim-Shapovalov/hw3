@@ -23,7 +23,8 @@ blogsRouter.post('/',
     ValidationBlog,
     ErrorMiddleware,
     (req: Request, res: Response) => {
-    const newBlog = blogsRepositories.BlogsNew(req.body.id, req.body.name,req.body.description,req.body.websiteUrl)
+    const newBlog = blogsRepositories.BlogsNew(req.body.name, req.body.description, req.body.websiteUrl)
+
     res.status(201).send(newBlog)
 })
 

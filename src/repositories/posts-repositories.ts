@@ -8,8 +8,9 @@ export const postsRepositories = {
     },
 
 
-    NewPost(id:string, title: string, shortDescription:string, content: string, blogId: string){
+    NewPost(title: string, shortDescription:string, content: string, blogId: string){
         const blog = db.blogs.find(b => b.id === blogId)
+
         const newPosts = {
             id: new Date().toISOString(),
             title,
