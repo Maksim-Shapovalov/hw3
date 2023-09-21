@@ -19,8 +19,8 @@ blogsRouter.get('/', (req: Request, res: Response) => {
 })
 
 blogsRouter.post('/',
-    ValidationBlog,
     authGuardMiddleware,
+    ValidationBlog,
     ErrorMiddleware,
     (req: Request, res: Response) => {
     const newBlog = blogsRepositories.BlogsNew(req.body.id, req.body.name,req.body.description,req.body.websiteUrl)
@@ -28,8 +28,6 @@ blogsRouter.post('/',
 })
 
 blogsRouter.get('/:id',
-    ValidationBlog,
-    ErrorMiddleware,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.findBlogById(req.params.id)
     if (blog){
@@ -39,8 +37,8 @@ blogsRouter.get('/:id',
     }
 })
 blogsRouter.put('/:id',
-    ValidationBlog,
     authGuardMiddleware,
+    ValidationBlog,
     ErrorMiddleware,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)
@@ -51,9 +49,7 @@ blogsRouter.put('/:id',
 })
 
 blogsRouter.delete('/:id',
-    ValidationBlog,
     authGuardMiddleware,
-    ErrorMiddleware,
     (req: Request, res: Response) => {
     const deleted = blogsRepositories.delBlogsById(req.params.id)
     if (!deleted){

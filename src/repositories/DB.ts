@@ -17,7 +17,6 @@ export let db = {
             shortDescription: "string",
             content: "string",
             blogId: "string",
-            blogName: "string",
         }
     ]
 }

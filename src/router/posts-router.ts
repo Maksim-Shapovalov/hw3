@@ -22,17 +22,15 @@ postsRouter.get('/',
 })
 
 postsRouter.post('/',
-    ValidationPosts,
     authGuardMiddleware,
+    ValidationPosts,
     ErrorMiddleware,
     (req: Request, res: Response) => {
-        const newBlog = postsRepositories.NewPost(req.body.id, req.body.name,req.body.description,req.body.websiteUrl)
+        const newBlog = postsRepositories.NewPost(req.body.id, req.body.title,req.body.shortDescription,req.body.content, req.body.blogId)
        return  res.status(201).send(newBlog)
     })
 
 postsRouter.get('/:id',
-    ValidationPosts,
-    ErrorMiddleware,
     (req: Request, res: Response) => {
         let blog = blogsRepositories.findBlogById(req.params.id)
         if (blog){
@@ -42,8 +40,8 @@ postsRouter.get('/:id',
         }
     })
 postsRouter.put('/:id',
-    ValidationPosts,
     authGuardMiddleware,
+    ValidationPosts,
     ErrorMiddleware,
     (req: Request, res: Response) => {
         let post = postsRepositories.updatePostById(req.params.id, req.body.title, req.body.shortDescription,req.body.content, req.body.blogId,req.body.blogName)
@@ -54,9 +52,6 @@ postsRouter.put('/:id',
     })
 
 postsRouter.delete('/:id',
-    authGuardMiddleware,
-    ValidationPosts,
-    ErrorMiddleware,
     (req: Request, res: Response) => {
         const deleted = postsRepositories.delPostById(req.params.id)
         if (!deleted){

@@ -8,14 +8,14 @@ export const postsRepositories = {
     },
 
 
-    NewPost(id:string, title: string, shortDescription:string, content: string, blogId: string, blogName: string){
+    NewPost(id:string, title: string, shortDescription:string, content: string, blogId: string){
         const newPosts = {
             id: new Date().toISOString(),
             title,
             shortDescription,
             content,
-            blogId,
-            blogName
+            blogId
+
         }
         db.posts.push(newPosts)
         return newPosts
@@ -26,14 +26,13 @@ export const postsRepositories = {
 
     },
 
-    updatePostById(id: string, title: string, shortDescription:string, content: string, blogId: string, blogName: string){
+    updatePostById(id: string, title: string, shortDescription:string, content: string, blogId: string){
         let post = db.posts.find(b => b.id === id)
         if (post) {
             post.title = title
             post.shortDescription = shortDescription
             post.content = content
             post.blogId = blogId
-            post.blogName = blogName
             return true
         } else {
             return false
