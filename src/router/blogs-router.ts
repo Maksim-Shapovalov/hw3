@@ -4,6 +4,7 @@ import {body, query} from "express-validator";
 import {app, HTTP_STATUS} from "../index";
 import {ValidationBlog} from "../middlewares/blogs-middleware/blog-input-validation-middleware";
 import {authGuardMiddleware} from "../middlewares/admin-middleware";
+import {ErrorMiddleware} from "../middlewares/error-middleware";
 
 
 
@@ -19,6 +20,7 @@ blogsRouter.get('/', (req: Request, res: Response)=>{
 blogsRouter.post('/',
     ValidationBlog,
     authGuardMiddleware,
+    ErrorMiddleware,
     (req: Request, res: Response) => {
     const newBlog = blogsRepositories.BlogsNew(req.body.id, req.body.name,req.body.description,req.body.websiteUrl)
     res.status(201).send(newBlog)
@@ -26,6 +28,7 @@ blogsRouter.post('/',
 
 blogsRouter.get('/:id',
     ValidationBlog,
+    ErrorMiddleware,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.findBlogById(req.params.id)
     if (blog){
@@ -37,6 +40,7 @@ blogsRouter.get('/:id',
 blogsRouter.put('/:id',
     ValidationBlog,
     authGuardMiddleware,
+    ErrorMiddleware,
     (req: Request, res: Response) => {
     let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)
 
@@ -48,6 +52,7 @@ blogsRouter.put('/:id',
 blogsRouter.delete('/:id',
     ValidationBlog,
     authGuardMiddleware,
+    ErrorMiddleware,
     (req: Request, res: Response) => {
     const deleted = blogsRepositories.delBlogsById(req.params.id)
     if (!deleted){
