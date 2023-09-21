@@ -16,9 +16,9 @@ import {ErrorMiddleware} from "../middlewares/error-middleware";
 export const postsRouter = Router();
 
 postsRouter.get('/',
-    ValidationPosts,
     (req: Request, res: Response)=>{
-    res.status(HTTP_STATUS.OK_200).send(postsRepositories.AllPost);
+    const posts = postsRepositories.AllPost()
+    return res.status(HTTP_STATUS.OK_200).send(posts);
 })
 
 postsRouter.post('/',

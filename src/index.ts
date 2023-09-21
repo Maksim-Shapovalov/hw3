@@ -16,16 +16,16 @@ export const HTTP_STATUS = {
 
 
 const app = express();
-const parserMiddleware = bodyParser;
+//const parserMiddleware = bodyParser;
 
 
 export const port = process.env.PORT || 3000;
-app.use(parserMiddleware);
+//app.use(parserMiddleware);
 app.use(express.json());
 
-app.use('blogs', blogsRouter);
-app.use('posts',postsRouter);
-app.use('testing/all-data', testingRouter);
+app.use('/blogs', blogsRouter);
+app.use('/posts',postsRouter);
+app.use('/testing/all-data', testingRouter);
 
 app.listen(port, () =>{
     console.log(`Example app listening on port ${port}`)

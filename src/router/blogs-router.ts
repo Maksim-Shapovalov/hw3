@@ -13,8 +13,9 @@ import {ErrorMiddleware} from "../middlewares/error-middleware";
 export const blogsRouter = Router();
 
 
-blogsRouter.get('/', (req: Request, res: Response)=>{
-    res.status(HTTP_STATUS.OK_200).send(blogsRepositories.AllBlogs);
+blogsRouter.get('/', (req: Request, res: Response) => {
+ const blogs = blogsRepositories.AllBlogs()
+   return res.status(HTTP_STATUS.OK_200).send(blogs);
 })
 
 blogsRouter.post('/',

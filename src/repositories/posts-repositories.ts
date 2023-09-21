@@ -1,28 +1,26 @@
 import {db} from "./DB";
 export const postsRepositories = {
 
-    AllPost(name: string ) {
-        if (name){
-            return db.blogs.filter(f => f.name.indexOf(name))
-        }else{
-            return db.blogs
-        }
+    AllPost() {
+
+            return db.posts;
+
     },
 
 
     NewPost(id:string, name: string, description: string, websiteUrl: string){
-        const newBlog = {
+        const newPosts = {
             id: new Date().toISOString(),
             name,
             description,
             websiteUrl
         }
-        db.blogs.push(newBlog)
-        return newBlog
+        db.blogs.push(newPosts)
+        return newPosts
     },
 
     findPostById(id: string){
-        return db.blogs.find(b => b.id === id)
+        return db.posts.find(b => b.id === id)
 
     },
 
@@ -43,8 +41,8 @@ export const postsRepositories = {
     },
     delPostById(id: string) {
         for (let i = 0; i < db.blogs.length; i++){
-            if (db.blogs[i].id === id) {
-                db.blogs.slice(i,1)
+            if (db.posts[i].id === id) {
+                db.posts.slice(i,1)
                 return true
             }
         }

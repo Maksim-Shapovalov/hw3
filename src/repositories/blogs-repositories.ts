@@ -2,12 +2,12 @@ import {db} from "./DB";
 import {HTTP_STATUS} from "../index";
 export const blogsRepositories = {
 
-    AllBlogs(name: string ) {
-        if (name){
-            return db.blogs.filter(f => f.name.indexOf(name))
-        }else{
+    AllBlogs( ) {
+        // if (name){
+        //     return db.blogs.filter(f => f.name.indexOf(name))
+        // }else{
             return db.blogs
-        }
+        // }
     },
 
 
