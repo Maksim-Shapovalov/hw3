@@ -8,14 +8,16 @@ export const postsRepositories = {
     },
 
 
-    NewPost(id:string, name: string, description: string, websiteUrl: string){
+    NewPost(id:string, title: string, shortDescription:string, content: string, blogId: string, blogName: string){
         const newPosts = {
             id: new Date().toISOString(),
-            name,
-            description,
-            websiteUrl
+            title,
+            shortDescription,
+            content,
+            blogId,
+            blogName
         }
-        db.blogs.push(newPosts)
+        db.posts.push(newPosts)
         return newPosts
     },
 
@@ -24,7 +26,7 @@ export const postsRepositories = {
 
     },
 
-    updatePostById(id: string, title: string, shortDescription:string, content: string, blogId: string, blogName: string,){
+    updatePostById(id: string, title: string, shortDescription:string, content: string, blogId: string, blogName: string){
         let post = db.posts.find(b => b.id === id)
         if (post) {
             post.title = title

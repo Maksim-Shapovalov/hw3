@@ -22,7 +22,7 @@ export let db = {
     ]
 }
 
-export const admin = 'YWRtaW46cXdlcnR5'
+// export const admin = 'YWRtaW46cXdlcnR5'
 
 export const testingRouter = Router();
 testingRouter.delete('/', (req: Request, res: Response)=>{
