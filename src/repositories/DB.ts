@@ -28,5 +28,5 @@ export const testingRouter = Router();
 testingRouter.delete('/', (req: Request, res: Response)=>{
     db.blogs = []
     db.posts = []
-    res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
+    return res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
 })

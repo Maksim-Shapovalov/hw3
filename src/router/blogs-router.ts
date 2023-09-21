@@ -33,9 +33,9 @@ blogsRouter.get('/:id',
     (req: Request, res: Response) => {
     let blog = blogsRepositories.findBlogById(req.params.id)
     if (blog){
-        res.status(200).send(blog)
+        return res.status(200).send(blog)
     } else {
-      res.sendStatus(404)
+      return res.sendStatus(404)
     }
 })
 blogsRouter.put('/:id',
@@ -47,7 +47,7 @@ blogsRouter.put('/:id',
 
 
 
-    res.status(HTTP_STATUS.NO_CONTENT_204).send(blog)
+    return res.status(HTTP_STATUS.NO_CONTENT_204).send(blog)
 })
 
 blogsRouter.delete('/:id',
@@ -57,7 +57,7 @@ blogsRouter.delete('/:id',
     (req: Request, res: Response) => {
     const deleted = blogsRepositories.delBlogsById(req.params.id)
     if (!deleted){
-        res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+        return res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
     }
 })
 

@@ -26,4 +26,4 @@ export const ErrorMiddleware = (req:Request, res:Response, next: NextFunction) =
         return res.status(HTTP_STATUS.BAD_REQUEST_400);
     }
 
-    res.send({ errors: result.array() });}
+    return res.send({ errors: result.array() });}
