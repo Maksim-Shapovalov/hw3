@@ -1,7 +1,7 @@
 import {Request, Response, Router} from "express";
 import {blogsRepositories} from "../repositories/blogs-repositories";
 import {body, query} from "express-validator";
-import {app, HTTP_STATUS} from "../index";
+import { HTTP_STATUS} from "../index";
 import {ValidationBlog} from "../middlewares/blogs-middleware/blog-input-validation-middleware";
 import {authGuardMiddleware} from "../middlewares/admin-middleware";
 import {ErrorMiddleware} from "../middlewares/error-middleware";
@@ -11,7 +11,7 @@ import {ErrorMiddleware} from "../middlewares/error-middleware";
 
 
 export const blogsRouter = Router();
-app.use('blogs', blogsRouter)
+
 
 blogsRouter.get('/', (req: Request, res: Response)=>{
     res.status(HTTP_STATUS.OK_200).send(blogsRepositories.AllBlogs);

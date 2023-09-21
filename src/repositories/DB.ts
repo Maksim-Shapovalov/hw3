@@ -1,5 +1,5 @@
-import {Request, Response} from "express";
-import {app, HTTP_STATUS} from "../index";
+import {Request, Response, Router} from "express";
+import { HTTP_STATUS} from "../index";
 
 export let db = {
     blogs: [
@@ -24,8 +24,8 @@ export let db = {
 
 export const admin = 'YWRtaW46cXdlcnR5'
 
-
-app.delete('testing/all-data', (req: Request, res: Response)=>{
+export const testingRouter = Router();
+testingRouter.delete('/', (req: Request, res: Response)=>{
     db.blogs = []
     db.posts = []
     res.sendStatus(HTTP_STATUS.NO_CONTENT_204)

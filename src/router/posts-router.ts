@@ -1,5 +1,5 @@
 import {Request, Response, Router} from "express";
-import {app, HTTP_STATUS} from "../index";
+import { HTTP_STATUS} from "../index";
 import {postsRepositories} from "../repositories/posts-repositories";
 import {blogsRepositories} from "../repositories/blogs-repositories";
 import {ValidationPosts} from "../middlewares/posts-middleware/post-input-validation-middleware";
@@ -14,7 +14,7 @@ import {ErrorMiddleware} from "../middlewares/error-middleware";
 
 
 export const postsRouter = Router();
-app.use('posts',postsRouter)
+
 postsRouter.get('/',
     ValidationPosts,
     (req: Request, res: Response)=>{
