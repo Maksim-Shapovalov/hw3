@@ -11,6 +11,11 @@ const ErrorsFormatter = (error: ValidationError)=>{
                 message: error.msg,
                 field: error.path
             }
+        default :
+            return {
+                message: error.msg,
+                field: 'None'
+            }
     }
 }
 

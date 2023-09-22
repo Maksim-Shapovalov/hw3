@@ -2,6 +2,7 @@ import {NextFunction, Request, Response} from "express";
 import {HTTP_STATUS} from "../index";
 
 const expectedAuthHeader = 'admin:qwerty'
+// const expectedAuthHeaderCode =
 
 export const authGuardMiddleware = (req: Request, res: Response , next: NextFunction) => {
     const authHeader = req.headers.authorization
