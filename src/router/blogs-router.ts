@@ -23,7 +23,11 @@ blogsRouter.post('/',
     authGuardMiddleware,
     ValidationBlog(),
     ErrorMiddleware,
-    (req: Request, res: Response) => {
+    (req: Request<{
+        name: string,
+        description: string,
+        websiteUrl: string
+    }>, res: Response) => {
         console.log('blog post')
     const newBlog = blogsRepositories.BlogsNew(req.body.name, req.body.description, req.body.websiteUrl)
 
