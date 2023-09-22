@@ -25,12 +25,7 @@ postsRouter.post('/',
     authGuardMiddleware,
     ValidationPosts(),
     ErrorMiddleware,
-    (req: Request<{
-        title: string,
-        shortDescription: string,
-        content: string,
-        blogId: string,
-    }>, res: Response) => {
+    (req: Request, res: Response) => {
         const newBlog = postsRepositories.NewPost(req.body.title,req.body.shortDescription,req.body.content, req.body.blogId,)
         res.status(201).send(newBlog)
     })

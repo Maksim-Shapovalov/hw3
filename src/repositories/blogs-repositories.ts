@@ -1,5 +1,6 @@
 import {db} from "./DB";
 import {HTTP_STATUS} from "../index";
+import {throws} from "node:assert";
 export const blogsRepositories = {
 
     AllBlogs( ) {
@@ -34,10 +35,20 @@ export const blogsRepositories = {
             blog.name = name
             blog.description = description
             blog.websiteUrl = websiteUrl
-            return true
+            return
         } else {
             return false
         }
+        if (blog!.name !== "string"){
+            return false
+        }
+        if (blog!.description !== "string"){
+            return false
+        }
+        if (blog!.websiteUrl !== "string"){
+            return false
+        }
+        return true
 
 
     },
