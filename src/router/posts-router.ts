@@ -54,6 +54,7 @@ postsRouter.put('/:id',
     })
 
 postsRouter.delete('/:id',
+    authGuardMiddleware,
     (req: Request, res: Response) => {
         const deleted = postsRepositories.delPostById(req.params.id)
         if (!deleted){
