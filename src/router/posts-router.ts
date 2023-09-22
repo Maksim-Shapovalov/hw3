@@ -26,12 +26,10 @@ postsRouter.post('/',
     ValidationPosts(),
     ErrorMiddleware,
     (req: Request<{
-        id: string,
         title: string,
         shortDescription: string,
         content: string,
         blogId: string,
-        blogName: string
     }>, res: Response) => {
         const newBlog = postsRepositories.NewPost(req.body.title,req.body.shortDescription,req.body.content, req.body.blogId,)
         res.status(201).send(newBlog)
