@@ -15,13 +15,19 @@ export const authGuardMiddleware = (req: Request, res: Response , next: NextFunc
     const splitHeader = authHeader.split(' ')[1]
 
     console.log(splitHeader, 'splitHeader')
-    const enCodeHeader = atob(splitHeader)
-
-    if (enCodeHeader !== expectedAuthHeader){
-        res.sendStatus(HTTP_STATUS.UNAUTHORIZED_401)
-        return
+    let enCodeHeader = null;
+    try{
+     enCodeHeader = atob(splitHeader)
+     console.log(enCodeHeader, 'encoded')
+} catch (e) {
+        console.log('Error in encoding Basic auth')
+        return res.sendStatus(HTTP_STATUS.UNAUTHORIZED_401)
     }
 
-    console.log('auth')
+    if (enCodeHeader !== expectedAuthHeader){
+        return res.sendStatus(HTTP_STATUS.UNAUTHORIZED_401)
+    }
+
+    console.log('auth ok')
     next()
 }
