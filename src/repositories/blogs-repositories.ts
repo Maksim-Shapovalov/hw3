@@ -13,13 +13,17 @@ export const blogsRepositories = {
 
 
     BlogsNew(name: string, description: string, websiteUrl: string){
+        if (!name){
+
+        }
         console.log('create blog')
         const newBlog = {
             id: (+new Date()).toString(),
-            name,
+            name: name,
             description,
-            websiteUrl
+            websiteUrl: websiteUrl
         }
+
         db.blogs.push(newBlog)
         return newBlog
     },

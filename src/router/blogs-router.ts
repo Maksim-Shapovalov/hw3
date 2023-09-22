@@ -26,6 +26,12 @@ blogsRouter.post('/',
     (req: Request, res: Response) => {
         console.log('blog post')
     const newBlog = blogsRepositories.BlogsNew(req.body.name, req.body.description, req.body.websiteUrl)
+        if (typeof newBlog.name !== "string"){
+            res.sendStatus(HTTP_STATUS.BAD_REQUEST_400)
+        }
+        if (typeof newBlog.websiteUrl !== "string"){
+            res.sendStatus(HTTP_STATUS.BAD_REQUEST_400)
+        }
 
     res.status(201).send(newBlog)
 })
