@@ -39,21 +39,9 @@ export const blogsRepositories = {
             blog.name = name
             blog.description = description
             blog.websiteUrl = websiteUrl
-            return
-        } else {
-            return false
+            return true
         }
-        if (blog!.name !== "string"){
-            return false
-        }
-        if (blog!.description !== "string"){
-            return false
-        }
-        if (blog!.websiteUrl !== "string"){
-            return false
-        }
-        return true
-
+        return false
 
     },
     delBlogsById(id: string) {

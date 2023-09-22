@@ -26,12 +26,6 @@ blogsRouter.post('/',
     (req: Request, res: Response) => {
         console.log('blog post')
     const newBlog = blogsRepositories.BlogsNew(req.body.name, req.body.description, req.body.websiteUrl)
-        if (typeof newBlog.name !== "string"){
-            res.sendStatus(HTTP_STATUS.BAD_REQUEST_400)
-        }
-        if (typeof newBlog.websiteUrl !== "string"){
-            res.sendStatus(HTTP_STATUS.BAD_REQUEST_400)
-        }
 
     res.status(201).send(newBlog)
 })
@@ -52,9 +46,9 @@ blogsRouter.put('/:id',
     (req: Request, res: Response) => {
     let blog = blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description,req.body.websiteUrl)
     if (!blog){
-        res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+       return res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
     }
-        res.status(HTTP_STATUS.NO_CONTENT_204).send(blog)
+      return res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
 })
 
 blogsRouter.delete('/:id',
