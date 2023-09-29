@@ -4,7 +4,7 @@ import {MongoClient} from "mongodb";
 
 //"mongodb://localhost:27017"
 
-const mongoUri = process.env.mongoURI || "mongodb+srv://maksimshapovalov01:<Qwerty2469polo>@cluster0.5v1tm6m.mongodb.net/hw3?retryWrites=true&w=majority"
+const mongoUri = process.env.mongoURI || "mongodb+srv://maksimshapovalov01:Qwerty2469polo@cluster0.5v1tm6m.mongodb.net/hw3?retryWrites=true&w=majority"
 
 export const client = new MongoClient(mongoUri);
 
@@ -12,7 +12,7 @@ export async function runDb () {
     try {
         await client.connect();
         await client.db("blogs").command({ping: 1})
-        console.log("Connected succesfully to mongo server");
+        console.log("Connected successfully to mongo server");
     } catch {
         await client.close()
     }
