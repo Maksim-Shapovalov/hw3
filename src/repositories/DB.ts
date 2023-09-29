@@ -12,7 +12,7 @@ export const client = new MongoClient(mongoUri);
 export async function runDb () {
     try {
         await client.connect();
-        await client.db("hw3").command({ping: 1})
+        await client.db("Cluster0").command({ping: 1})
         console.log("Connected successfully to mongo server");
     } catch {
         console.log("connected fAiled")
