@@ -1,10 +1,11 @@
 import {Request, Response, Router} from "express";
 import { HTTP_STATUS} from "../index";
 import {MongoClient} from "mongodb";
+import {config} from "dotenv"
+config()
 
-//"mongodb://localhost:27017"
 
-const mongoUri = process.env.mongoURI || "mongodb+srv://maksimshapovalov01:Qwerty2469polo@cluster0.5v1tm6m.mongodb.net/hw3?retryWrites=true&w=majority"
+const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017"
 
 export const client = new MongoClient(mongoUri);
 
