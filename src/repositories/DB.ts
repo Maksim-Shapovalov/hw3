@@ -21,7 +21,7 @@ export async function runDb () {
 export const testingRouter = Router();
 
 testingRouter.delete('/', (req: Request, res: Response)=>{
-    client.db("hw2").collection("blogs").deleteMany({})
-    client.db("hw2").collection("post").deleteMany({})
+    client.db("hw3").collection("blogs").deleteMany({})
+    client.db("hw3").collection("post").deleteMany({})
     res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
 })
