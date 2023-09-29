@@ -1,10 +1,8 @@
 import express, { Request, Response } from "express";
-import * as string_decoder from "string_decoder";
-import bodyParser from "body-parser";
 import {blogsRouter} from "./router/blogs-router";
 import {postsRouter} from "./router/posts-router";
-import {testingRouter} from "./repositories/DB";
-
+import {runDb, testingRouter,} from "./repositories/DB";
+//testingRouter
 export const HTTP_STATUS = {
     OK_200: 200,
     CREATED_201: 201,
@@ -27,6 +25,12 @@ app.use('/blogs', blogsRouter);
 app.use('/posts',postsRouter);
 app.use('/testing/all-data', testingRouter);
 
-app.listen(port, () =>{
-    console.log(`Example app listening on port ${port}`)
-})
+
+const startApp = async () => {
+    await runDb()
+    app.listen(port, () =>{
+        console.log(`Example app listening on port ${port}`)
+    })
+}
+
+startApp()

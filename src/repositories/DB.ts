@@ -1,32 +1,26 @@
 import {Request, Response, Router} from "express";
 import { HTTP_STATUS} from "../index";
+import {MongoClient} from "mongodb";
 
-export let db = {
-    blogs: [
-        {
-            id: "string",
-            name: "string",
-            description: "string",
-            websiteUrl: "string",
-        }
-    ],
-    posts: [
-        {
-            id: "string",
-            title: "string",
-            shortDescription: "string",
-            content: "string",
-            blogId: "string",
-            blogName: "string",
-        }
-    ]
+
+const mongoUri = process.env.mongoURI || "mongodb://localhost:27017";
+
+export const client = new MongoClient(mongoUri);
+
+export async function runDb () {
+    try {
+        await client.connect();
+        await client.db("blogs").command({ping: 1})
+        console.log("Connected succesfully to mongo server");
+    } catch {
+        await client.close()
+    }
 }
 
-// export const admin = 'YWRtaW46cXdlcnR5'
-
 export const testingRouter = Router();
+
 testingRouter.delete('/', (req: Request, res: Response)=>{
-    db.blogs = []
-    db.posts = []
+    client.db("hw2").collection("blogs").deleteMany({})
+    client.db("hw2").collection("post").deleteMany({})
     res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
 })

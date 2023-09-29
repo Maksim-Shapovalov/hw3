@@ -1,8 +1,21 @@
-export type BlogsModel = {
-    'id': 'string',
-    'name': 'string',
-    'description': 'string',
-    'websiteUrl': 'string',
-    'createdAt': '2023-09-28T13:57:43.426Z',
-    'isMembership': true
+export type BlogsOutputModel = {
+    id: string
+    name: string
+    description: string
+    websiteUrl: string
+    createdAt: string
+    isMembership: boolean
+}
+
+
+
+
+
+export type BlogsDbModels = {
+    // id: string
+    name: string
+    description: string
+    websiteUrl: string
+    createdAt: string
+    isMembership: boolean
 }

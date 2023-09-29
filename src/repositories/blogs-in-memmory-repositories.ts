@@ -1,18 +1,15 @@
-import {db} from "./DB";
-import {HTTP_STATUS} from "../index";
-import {throws} from "node:assert";
+import {client} from "./DB";
+import {BlogsDbModels, BlogsOutputModel} from "../model/blogs-db-models";
+import {db} from "../db/localDB";
+
 export const blogsRepositories = {
 
-    AllBlogs( ) {
-        // if (name){
-        //     return db.blogs.filter(f => f.name.indexOf(name))
-        // }else{
-            return db.blogs
-        // }
+    async AllBlogs( ):Promise<BlogsOutputModel[]> {
+            return db.blogs;
     },
 
 
-    BlogsNew(name: string, description: string, websiteUrl: string){
+    async BlogsNew(name: string, description: string, websiteUrl: string):Promise<BlogsOutputModel>{
         if (!name){
 
         }
@@ -21,38 +18,35 @@ export const blogsRepositories = {
             id: (+new Date()).toString(),
             name: name,
             description,
-            websiteUrl: websiteUrl
+            websiteUrl: websiteUrl,
+            createdAt: new Date().toString(),
+            isMembership: true
         }
 
         db.blogs.push(newBlog)
         return newBlog
     },
 
-    findBlogById(id: string){
+    async findBlogById(id:string):Promise<BlogsOutputModel | undefined>{
         return db.blogs.find(b => b.id === id)
 
     },
 
-    updateBlogById(id: string, name : string, description: string, websiteUrl: string){
-        let blog = db.blogs.find(b => b.id === id)
-        if (blog) {
-            blog.name = name
-            blog.description = description
-            blog.websiteUrl = websiteUrl
-            return true
-        }
-        return false
+    async updateBlogById(id:string, name : string, description: string, websiteUrl: string):Promise<boolean>{
+
+        const res = await client.db("hw2").collection("blogs").updateOne({id:id}, {$set: {name:name,description: description, websiteUrl: websiteUrl}})
+        return res.matchedCount === 1
 
     },
-    delBlogsById(id: string) {
+    async delBlogsById(id: string):Promise<BlogsOutputModel[]> {
         const blogIndex = db.blogs.findIndex((b) => b.id === id)
 
         if(blogIndex === -1){
-            return false
+
         }
 
-        db.blogs.splice(blogIndex, 1)
-        return true
+
+        return db.blogs.splice(blogIndex, 1)
     }
 
 }

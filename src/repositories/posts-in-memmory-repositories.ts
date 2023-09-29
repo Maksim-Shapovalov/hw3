@@ -1,14 +1,16 @@
-import {db} from "./DB";
+import {db} from "../db/localDB";
+import {PostsOutputModel} from "../model/posts-model";
+
 export const postsRepositories = {
 
-    AllPost() {
+    async AllPost():Promise<PostsOutputModel[]> {
 
             return db.posts;
 
     },
 
 
-    NewPost(title: string, shortDescription:string, content: string, blogId: string){
+    async  NewPost(title: string, shortDescription:string, content: string, blogId: string):Promise<PostsOutputModel>{
         const blog = db.blogs.find(b => b.id === blogId)
 
         const newPosts = {
@@ -24,12 +26,12 @@ export const postsRepositories = {
         return newPosts
     },
 
-    findPostById(id: string){
+    async findPostById(id: string):Promise<PostsOutputModel | undefined>{
         return db.posts.find(b => b.id === id)
 
     },
 
-    updatePostById(id: string, title: string, shortDescription:string, content: string, blogId: string){
+    async updatePostById(id: string, title: string, shortDescription:string, content: string, blogId: string):Promise<boolean>{
         let post = db.posts.find(b => b.id === id)
         if (post) {
             post.title = title
@@ -43,15 +45,15 @@ export const postsRepositories = {
 
 
     },
-    delPostById(id: string) {
+    async delPostById(id: string):Promise<PostsOutputModel[]> {
         const postIndex = db.posts.findIndex(p => p.id === id)
 
         if(postIndex === -1){
-            return false
+
         }
 
-        db.posts.splice(postIndex, 1)
-        return true
+
+        return db.posts.splice(postIndex, 1)
     }
 
 }
