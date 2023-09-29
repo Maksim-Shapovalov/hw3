@@ -15,6 +15,7 @@ export async function runDb () {
         await client.db("blogs").command({ping: 1})
         console.log("Connected successfully to mongo server");
     } catch {
+        console.log("connected fAiled")
         await client.close()
     }
 }
@@ -24,5 +25,6 @@ export const testingRouter = Router();
 testingRouter.delete('/', (req: Request, res: Response)=>{
     client.db("hw3").collection("blogs").deleteMany({})
     client.db("hw3").collection("post").deleteMany({})
+    console.log("testingRouter")
     res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
 })
