@@ -17,6 +17,7 @@ exports.blogsRepositories = {
         return __awaiter(this, void 0, void 0, function* () {
             const posts = yield mongo_1.dbBlogs.find({}).toArray();
             return posts.map((p) => blogMapper(p));
+            //
         });
     },
     BlogsNew(name, description, websiteUrl) {

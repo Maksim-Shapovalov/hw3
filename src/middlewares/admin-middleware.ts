@@ -14,7 +14,6 @@ export const authGuardMiddleware = (req: Request, res: Response , next: NextFunc
 
     const splitHeader = authHeader.split(' ')[1]
 
-    console.log(splitHeader, 'splitHeader')
     let enCodeHeader = null;
     try{
      enCodeHeader = atob(splitHeader)
@@ -28,6 +27,5 @@ export const authGuardMiddleware = (req: Request, res: Response , next: NextFunc
         return res.sendStatus(HTTP_STATUS.UNAUTHORIZED_401)
     }
 
-    console.log('auth ok')
     next()
 }

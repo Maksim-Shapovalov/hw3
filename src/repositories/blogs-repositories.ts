@@ -7,6 +7,7 @@ export const blogsRepositories = {
         const posts = await dbBlogs.find({}).toArray()
 
         return posts.map((p) => blogMapper(p))
+        //
 
     },
 

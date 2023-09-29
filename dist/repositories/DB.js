@@ -21,7 +21,7 @@ function runDb() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield exports.client.connect();
-            yield exports.client.db("blogs").command({ ping: 1 });
+            yield exports.client.db("admin").command({ ping: 1 });
             console.log("Connected successfully to mongo server");
         }
         catch (_a) {

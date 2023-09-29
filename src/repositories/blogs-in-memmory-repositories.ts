@@ -10,9 +10,6 @@ export const blogsRepositories = {
 
 
     async BlogsNew(name: string, description: string, websiteUrl: string):Promise<BlogsOutputModel>{
-        if (!name){
-
-        }
         console.log('create blog')
         const newBlog = {
             id: (+new Date()).toString(),
@@ -28,7 +25,7 @@ export const blogsRepositories = {
     },
 
     async findBlogById(id:string):Promise<BlogsOutputModel | undefined>{
-        return db.blogs.find(b => b.id === id)
+        return  db.blogs.find(b => b.id === id)
 
     },
 
@@ -38,15 +35,15 @@ export const blogsRepositories = {
         return res.matchedCount === 1
 
     },
-    async delBlogsById(id: string):Promise<BlogsOutputModel[]> {
+    async delBlogsById(id: string):Promise<boolean> {
         const blogIndex = db.blogs.findIndex((b) => b.id === id)
 
         if(blogIndex === -1){
-
+            return false
         }
 
-
-        return db.blogs.splice(blogIndex, 1)
+        db.blogs.splice(blogIndex, 1)
+        return true
     }
 
 }
