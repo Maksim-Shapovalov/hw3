@@ -1,6 +1,7 @@
 import {ObjectId, WithId} from "mongodb";
 import {BlogsDbModels, BlogsOutputModel} from "../model/blogs-db-models";
 import {dbBlogs} from "../db/mongo";
+import {log} from "node:util";
 export const blogsRepositories = {
 
     async AllBlogs( ):Promise<BlogsOutputModel[]> {
@@ -17,15 +18,15 @@ export const blogsRepositories = {
             name,
             description,
             websiteUrl,
-            createdAt: new Date().toString(),
-            isMembership: true
+            createdAt: new Date().toISOString(),
+            isMembership: false
         }
         const res = await dbBlogs.insertOne({...newBlog})
         return blogMapper({...newBlog, _id: res.insertedId})
     },
 
     async findBlogById(id:string):Promise<BlogsOutputModel | null>{
-        const res = await dbBlogs.findOne({id: new ObjectId(id)})
+        const res = await dbBlogs.findOne({_id: new ObjectId(id)})
         if (!res) {
             return null
         }
@@ -35,12 +36,12 @@ export const blogsRepositories = {
 
     async updateBlogById(id:string, name : string, description: string, websiteUrl: string):Promise<boolean>{
         const res = await dbBlogs
-            .updateOne({id:new ObjectId(id)}, {$set: {name:name,description: description, websiteUrl: websiteUrl}})
+            .updateOne({_id:new ObjectId(id)}, {$set: {name:name,description: description, websiteUrl: websiteUrl}})
         return res.matchedCount === 1
     },
 
     async delBlogsById(id: string):Promise<boolean> {
-        const res = await dbBlogs.deleteOne({id:new ObjectId(id)})
+        const res = await dbBlogs.deleteOne({_id:new ObjectId(id)})
         return res.deletedCount === 1
     }
 

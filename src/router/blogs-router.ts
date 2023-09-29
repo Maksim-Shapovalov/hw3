@@ -13,6 +13,7 @@ export const blogsRouter = Router();
 
 
 blogsRouter.get('/', async (req: Request, res: Response) => {
+    console.log("get all blog")
     const blogs = await blogsRepositories.AllBlogs()
     res.status(HTTP_STATUS.OK_200).send(blogs);
 })
@@ -29,7 +30,11 @@ blogsRouter.post('/',
 
 blogsRouter.get('/:id',
     async (req: Request, res: Response) => {
-        let [blog] = await Promise.all([blogsRepositories.findBlogById(req.params.id)])
+
+        // let blog = await blogsRepositories.findBlogById(req.params.id)
+        const blog = await blogsRepositories.findBlogById(req.params.id)
+        console.log("get id blog", blog)
+
         if (blog) {
             res.status(200).send(blog)
         } else {
@@ -41,6 +46,7 @@ blogsRouter.put('/:id',
     ValidationBlog(),
     ErrorMiddleware,
     async (req: Request, res: Response) => {
+        console.log("update blog")
         let blog = await blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description, req.body.websiteUrl)
         if (!blog) {
             return res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
@@ -51,6 +57,7 @@ blogsRouter.put('/:id',
 blogsRouter.delete('/:id',
     authGuardMiddleware,
     async (req: Request, res: Response) => {
+        console.log("deleted blog")
         const [deleted] = await Promise.all([blogsRepositories.delBlogsById(req.params.id)])
         if (!deleted) {
             res.sendStatus(HTTP_STATUS.NOT_FOUND_404)

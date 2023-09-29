@@ -26,8 +26,8 @@ exports.blogsRepositories = {
                 name,
                 description,
                 websiteUrl,
-                createdAt: new Date().toString(),
-                isMembership: true
+                createdAt: new Date().toISOString(),
+                isMembership: false
             };
             const res = yield mongo_1.dbBlogs.insertOne(Object.assign({}, newBlog));
             return blogMapper(Object.assign(Object.assign({}, newBlog), { _id: res.insertedId }));
@@ -35,7 +35,7 @@ exports.blogsRepositories = {
     },
     findBlogById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield mongo_1.dbBlogs.findOne({ id: new mongodb_1.ObjectId(id) });
+            const res = yield mongo_1.dbBlogs.findOne({ _id: new mongodb_1.ObjectId(id) });
             if (!res) {
                 return null;
             }
@@ -45,13 +45,13 @@ exports.blogsRepositories = {
     updateBlogById(id, name, description, websiteUrl) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield mongo_1.dbBlogs
-                .updateOne({ id: new mongodb_1.ObjectId(id) }, { $set: { name: name, description: description, websiteUrl: websiteUrl } });
+                .updateOne({ _id: new mongodb_1.ObjectId(id) }, { $set: { name: name, description: description, websiteUrl: websiteUrl } });
             return res.matchedCount === 1;
         });
     },
     delBlogsById(id) {
         return __awaiter(this, void 0, void 0, function* () {
-            const res = yield mongo_1.dbBlogs.deleteOne({ id: new mongodb_1.ObjectId(id) });
+            const res = yield mongo_1.dbBlogs.deleteOne({ _id: new mongodb_1.ObjectId(id) });
             return res.deletedCount === 1;
         });
     }

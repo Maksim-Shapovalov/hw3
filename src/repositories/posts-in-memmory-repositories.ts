@@ -45,15 +45,15 @@ export const postsRepositories = {
 
 
     },
-    async delPostById(id: string):Promise<PostsOutputModel[]> {
+    async delPostById(id: string):Promise<boolean> {
         const postIndex = db.posts.findIndex(p => p.id === id)
 
         if(postIndex === -1){
-
+            return false
         }
 
-
-        return db.posts.splice(postIndex, 1)
+        db.posts.splice(postIndex, 1)
+        return true
     }
 
 }

@@ -17,7 +17,8 @@ export const postsRepositories = {
             shortDescription,
             content,
             blogId,
-            blogName: findBlog!.name
+            blogName: findBlog!.name,
+            isMembership: false
         }
 
         const res = await dbPosts.insertOne({...newPosts})
@@ -54,6 +55,7 @@ const postMapper = (post: WithId<PostsDbModel>): PostsOutputModel => {
         shortDescription: post.shortDescription,
         content: post.content,
         blogId: post.blogId,
-        blogName: post.blogName
+        blogName: post.blogName,
+        isMembership: false
     }
 }

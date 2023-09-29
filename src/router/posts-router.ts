@@ -8,11 +8,6 @@ import {ErrorMiddleware} from "../middlewares/error-middleware";
 
 
 
-
-
-
-
-
 export const postsRouter = Router();
 
 postsRouter.get('/',
@@ -33,6 +28,7 @@ postsRouter.post('/',
 postsRouter.get('/:id',
     async (req: Request, res: Response) => {
         let post = await postsRepositories.findPostById(req.params.id)
+
         if (post) {
             res.status(200).send(post)
         } else {
@@ -45,10 +41,10 @@ postsRouter.put('/:id',
     ErrorMiddleware,
     async (req: Request, res: Response) => {
         let post = await postsRepositories.updatePostById(req.params.id, req.body.title, req.body.shortDescription, req.body.content, req.body.blogId)
+
         if (!post) {
             res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
         }
-
 
         res.status(HTTP_STATUS.NO_CONTENT_204).send(post)
     })
@@ -57,6 +53,7 @@ postsRouter.delete('/:id',
     authGuardMiddleware,
     async (req: Request, res: Response) => {
         const deleted = await postsRepositories.delPostById(req.params.id)
+
         if (!deleted) {
             res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
             return

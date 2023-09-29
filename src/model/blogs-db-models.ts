@@ -9,8 +9,6 @@ export type BlogsOutputModel = {
 
 
 
-
-
 export type BlogsDbModels = {
     // id: string
     name: string

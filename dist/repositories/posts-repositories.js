@@ -27,7 +27,8 @@ exports.postsRepositories = {
                 shortDescription,
                 content,
                 blogId,
-                blogName: findBlog.name
+                blogName: findBlog.name,
+                isMembership: false
             };
             const res = yield mongo_1.dbPosts.insertOne(Object.assign({}, newPosts));
             return postMapper(Object.assign(Object.assign({}, newPosts), { _id: res.insertedId }));
@@ -62,6 +63,7 @@ const postMapper = (post) => {
         shortDescription: post.shortDescription,
         content: post.content,
         blogId: post.blogId,
-        blogName: post.blogName
+        blogName: post.blogName,
+        isMembership: false
     };
 };

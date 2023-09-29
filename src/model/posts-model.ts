@@ -5,6 +5,7 @@ export type PostsOutputModel = {
     content: string
     blogId: string
     blogName: string
+    isMembership: boolean
 }
 
 export type PostsDbModel = {

@@ -18,6 +18,7 @@ const admin_middleware_1 = require("../middlewares/admin-middleware");
 const error_middleware_1 = require("../middlewares/error-middleware");
 exports.blogsRouter = (0, express_1.Router)();
 exports.blogsRouter.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("get all blog");
     const blogs = yield blogs_repositories_1.blogsRepositories.AllBlogs();
     res.status(index_1.HTTP_STATUS.OK_200).send(blogs);
 }));
@@ -27,7 +28,9 @@ exports.blogsRouter.post('/', admin_middleware_1.authGuardMiddleware, (0, blog_i
     res.status(201).send(newBlog);
 }));
 exports.blogsRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    let [blog] = yield Promise.all([blogs_repositories_1.blogsRepositories.findBlogById(req.params.id)]);
+    // let blog = await blogsRepositories.findBlogById(req.params.id)
+    const blog = yield blogs_repositories_1.blogsRepositories.findBlogById(req.params.id);
+    console.log("get id blog", blog);
     if (blog) {
         res.status(200).send(blog);
     }
@@ -36,6 +39,7 @@ exports.blogsRouter.get('/:id', (req, res) => __awaiter(void 0, void 0, void 0, 
     }
 }));
 exports.blogsRouter.put('/:id', admin_middleware_1.authGuardMiddleware, (0, blog_input_validation_middleware_1.ValidationBlog)(), error_middleware_1.ErrorMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("update blog");
     let blog = yield blogs_repositories_1.blogsRepositories.updateBlogById(req.params.id, req.body.name, req.body.description, req.body.websiteUrl);
     if (!blog) {
         return res.sendStatus(index_1.HTTP_STATUS.NOT_FOUND_404);
@@ -43,6 +47,7 @@ exports.blogsRouter.put('/:id', admin_middleware_1.authGuardMiddleware, (0, blog
     return res.sendStatus(index_1.HTTP_STATUS.NO_CONTENT_204);
 }));
 exports.blogsRouter.delete('/:id', admin_middleware_1.authGuardMiddleware, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log("deleted blog");
     const [deleted] = yield Promise.all([blogs_repositories_1.blogsRepositories.delBlogsById(req.params.id)]);
     if (!deleted) {
         res.sendStatus(index_1.HTTP_STATUS.NOT_FOUND_404);
