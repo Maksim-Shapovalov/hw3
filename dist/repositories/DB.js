@@ -21,7 +21,7 @@ function runDb() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             yield exports.client.connect();
-            yield exports.client.db("admin").command({ ping: 1 });
+            yield exports.client.db("hw3").command({ ping: 1 });
             console.log("Connected successfully to mongo server");
         }
         catch (_a) {
@@ -34,7 +34,7 @@ exports.runDb = runDb;
 exports.testingRouter = (0, express_1.Router)();
 exports.testingRouter.delete('/', (req, res) => {
     exports.client.db("hw3").collection("blogs").deleteMany({});
-    exports.client.db("hw3").collection("post").deleteMany({});
+    exports.client.db("hw3").collection("posts").deleteMany({});
     console.log("testingRouter");
     res.sendStatus(index_1.HTTP_STATUS.NO_CONTENT_204);
 });

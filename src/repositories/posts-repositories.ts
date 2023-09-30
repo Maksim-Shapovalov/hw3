@@ -9,7 +9,7 @@ export const postsRepositories = {
         return posts.map((p) => postMapper(p))
     },
 
-    async newPost(title: string, shortDescription: string, content: string, blogId: string): Promise<PostsOutputModel>{
+    async createNewPost(title: string, shortDescription: string, content: string, blogId: string): Promise<PostsOutputModel>{
         const findBlog = await dbBlogs.findOne({_id: new ObjectId(blogId)})
 
         const newPosts = {
@@ -56,6 +56,7 @@ const postMapper = (post: WithId<PostsDbModel>): PostsOutputModel => {
         content: post.content,
         blogId: post.blogId,
         blogName: post.blogName,
-        isMembership: false
+        isMembership: post.isMembership
+
     }
 }

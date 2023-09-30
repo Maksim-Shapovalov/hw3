@@ -19,7 +19,7 @@ exports.postsRepositories = {
             return posts.map((p) => postMapper(p));
         });
     },
-    newPost(title, shortDescription, content, blogId) {
+    createNewPost(title, shortDescription, content, blogId) {
         return __awaiter(this, void 0, void 0, function* () {
             const findBlog = yield mongo_1.dbBlogs.findOne({ _id: new mongodb_1.ObjectId(blogId) });
             const newPosts = {
@@ -64,6 +64,6 @@ const postMapper = (post) => {
         content: post.content,
         blogId: post.blogId,
         blogName: post.blogName,
-        isMembership: false
+        isMembership: post.isMembership
     };
 };

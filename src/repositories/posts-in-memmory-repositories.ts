@@ -3,14 +3,12 @@ import {PostsOutputModel} from "../model/posts-model";
 
 export const postsRepositories = {
 
-    async AllPost():Promise<PostsOutputModel[]> {
-
+    async allPost():Promise<PostsOutputModel[]> {
             return db.posts;
-
     },
 
 
-    async  NewPost(title: string, shortDescription:string, content: string, blogId: string):Promise<PostsOutputModel>{
+    async  createNewPost(title: string, shortDescription:string, content: string, blogId: string):Promise<PostsOutputModel | undefined>{
         const blog = db.blogs.find(b => b.id === blogId)
 
         const newPosts = {
@@ -19,7 +17,8 @@ export const postsRepositories = {
             shortDescription,
             content,
             blogId,
-            blogName: blog!.name
+            blogName: blog!.name,
+            isMembership: false
         }
 
         db.posts.push(newPosts)
@@ -27,7 +26,8 @@ export const postsRepositories = {
     },
 
     async findPostById(id: string):Promise<PostsOutputModel | undefined>{
-        return db.posts.find(b => b.id === id)
+        const post =  db.posts.find(b => b.id === id)
+        return post
 
     },
 

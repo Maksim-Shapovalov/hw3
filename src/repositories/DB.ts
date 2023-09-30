@@ -12,7 +12,7 @@ export const client = new MongoClient(mongoUri);
 export async function runDb () {
     try {
         await client.connect();
-        await client.db("admin").command({ping: 1})
+        await client.db("hw3").command({ping: 1})
         console.log("Connected successfully to mongo server");
     } catch {
         console.log("connected fAiled")
@@ -24,7 +24,7 @@ export const testingRouter = Router();
 
 testingRouter.delete('/', (req: Request, res: Response)=>{
     client.db("hw3").collection("blogs").deleteMany({})
-    client.db("hw3").collection("post").deleteMany({})
+    client.db("hw3").collection("posts").deleteMany({})
     console.log("testingRouter")
     res.sendStatus(HTTP_STATUS.NO_CONTENT_204)
 })

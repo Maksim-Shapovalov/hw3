@@ -1,6 +1,6 @@
 import {Request, Response, Router} from "express";
 import { HTTP_STATUS} from "../index";
-import {postsRepositories} from "../repositories/posts-in-memmory-repositories";
+import {postsRepositories} from "../repositories/posts-repositories";
 import {blogsRepositories} from "../repositories/blogs-repositories";
 import {ValidationPosts} from "../middlewares/posts-middleware/post-input-validation-middleware";
 import {authGuardMiddleware} from "../middlewares/admin-middleware";
@@ -12,7 +12,7 @@ export const postsRouter = Router();
 
 postsRouter.get('/',
     async (req: Request, res: Response) => {
-        const posts = await postsRepositories.AllPost()
+        const posts = await postsRepositories.allPost()
         res.status(HTTP_STATUS.OK_200).send(posts);
     })
 
@@ -21,13 +21,13 @@ postsRouter.post('/',
     ValidationPosts(),
     ErrorMiddleware,
     async (req: Request, res: Response) => {
-        const newBlog = await postsRepositories.NewPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId,)
-        res.status(201).send(newBlog)
+        const newPosts = await postsRepositories.createNewPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId,)
+        res.status(201).send(newPosts)
     })
 
 postsRouter.get('/:id',
     async (req: Request, res: Response) => {
-        let post = await postsRepositories.findPostById(req.params.id)
+        const post = await postsRepositories.findPostById(req.params.id)
 
         if (post) {
             res.status(200).send(post)

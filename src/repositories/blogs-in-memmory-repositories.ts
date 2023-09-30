@@ -17,7 +17,7 @@ export const blogsRepositories = {
             description,
             websiteUrl: websiteUrl,
             createdAt: new Date().toString(),
-            isMembership: true
+            isMembership: false
         }
 
         db.blogs.push(newBlog)

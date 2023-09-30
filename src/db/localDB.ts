@@ -1,3 +1,5 @@
+import {BlogsDbModels, BlogsOutputModel} from "../model/blogs-db-models";
+
 export let db = {
     blogs: [
         {
