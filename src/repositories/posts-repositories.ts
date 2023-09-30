@@ -18,7 +18,6 @@ export const postsRepositories = {
             content,
             blogId,
             blogName: findBlog!.name,
-            isMembership: false,
             createdAt: new Date().toISOString(),
         }
 
@@ -57,7 +56,7 @@ const postMapper = (post: WithId<PostsDbModel>): PostsOutputModel => {
         content: post.content,
         blogId: post.blogId,
         blogName: post.blogName,
-        isMembership: post.isMembership
+        createdAt: post.createdAt
 
     }
 }

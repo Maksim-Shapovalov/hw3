@@ -5,7 +5,7 @@ export type PostsOutputModel = {
     content: string
     blogId: string
     blogName: string
-    isMembership: boolean
+    createdAt: string
 }
 
 export type PostsDbModel = {
@@ -15,5 +15,5 @@ export type PostsDbModel = {
     content: string
     blogId: string
     blogName: string
-    isMembership: boolean
+    createdAt: string
 }

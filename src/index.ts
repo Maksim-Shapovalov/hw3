@@ -11,7 +11,6 @@ export const HTTP_STATUS = {
     UNAUTHORIZED_401: 401,
     NOT_FOUND_404: 404
 }
-
 const app = express();
 //const parserMiddleware = bodyParser;
 
