@@ -17,14 +17,14 @@ export const ValidationPosts = () => ([
         .withMessage('invalid content'),
     body('blogId')
         .trim()
-        .custom((value) => {
-        const blogExist = blogsRepositories.findBlogById(value)
+        .custom(async (value) => {
+            const blogExist = await blogsRepositories.findBlogById(value)
             console.log('error valid id blogs', blogExist)
-        if (!blogExist  || blogExist === undefined){
-            throw new Error('Blog not exist')
-        }
-        return true
-    })
+            if (!blogExist) {
+                throw new Error('Blog not exist')
+            }
+            return true
+        })
         .notEmpty()
         .isString()
         .withMessage('invalid blogId'),
