@@ -25,7 +25,6 @@ export const postsRepositories = {
 
         return postMapper({...newPosts, _id: res.insertedId})
     },
-
     async findPostById(id: string): Promise<PostsOutputModel | null> {
         const post = await dbPosts.findOne({_id: new ObjectId(id)})
 
