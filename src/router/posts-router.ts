@@ -44,6 +44,7 @@ postsRouter.put('/:id',
 
         if (!post) {
             res.sendStatus(HTTP_STATUS.NOT_FOUND_404)
+            return
         }
 
         res.status(HTTP_STATUS.NO_CONTENT_204).send(post)
