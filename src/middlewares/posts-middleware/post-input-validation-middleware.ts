@@ -1,5 +1,8 @@
 import {body} from "express-validator";
 import {blogsRepositories} from "../../repositories/blogs-repositories";
+import {BlogsOutputModel} from "../../model/blogs-db-models";
+import {dbBlogs} from "../../db/mongo";
+import {ObjectId} from "mongodb";
 
 export const ValidationPosts = () => ([
     body('title').trim().isString().notEmpty().isLength({min:1,max:30}),
@@ -17,9 +20,9 @@ export const ValidationPosts = () => ([
     body('blogId')
         .trim()
         .custom((value) => {
-        const blogExist = blogsRepositories.findBlogById(value)
+        const blogExist = dbBlogs.findOne({_id: new ObjectId(value)})
             console.log('error valid id blogs', blogExist)
-        if (!blogExist || Promise){
+        if (!blogExist){
             throw new Error('Blog not exist')
         }
         return true
