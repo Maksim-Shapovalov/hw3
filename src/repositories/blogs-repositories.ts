@@ -25,10 +25,10 @@ export const blogsRepositories = {
         return blogMapper({...newBlog, _id: res.insertedId})
     },
 
-    async findBlogById(id:string):Promise<BlogsOutputModel | null>{
+    async findBlogById(id:string):Promise<BlogsOutputModel | undefined>{
         const res = await dbBlogs.findOne({_id: new ObjectId(id)})
         if (!res) {
-            return null
+            return undefined
         }
         return blogMapper(res)
 

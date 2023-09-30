@@ -13,12 +13,12 @@ const ErrorsFormatter = ( e: ValidationError )=>{
             }
 
 }
-//{onlyFirstError: true}
+//
 export const ErrorMiddleware = (req:Request, res:Response, next: NextFunction) => {
     const result = validationResult(req).formatWith(ErrorsFormatter);
 
     if (!result.isEmpty()) {
-        const errorsMessage = { errorsMessages: result.array()}
+        const errorsMessage = { errorsMessages: result.array({onlyFirstError: true})}
        return res.status(HTTP_STATUS.BAD_REQUEST_400).send(errorsMessage);
     }
 
