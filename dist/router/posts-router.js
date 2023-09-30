@@ -38,6 +38,7 @@ exports.postsRouter.put('/:id', admin_middleware_1.authGuardMiddleware, (0, post
     let post = yield posts_repositories_1.postsRepositories.updatePostById(req.params.id, req.body.title, req.body.shortDescription, req.body.content, req.body.blogId);
     if (!post) {
         res.sendStatus(index_1.HTTP_STATUS.NOT_FOUND_404);
+        return;
     }
     res.status(index_1.HTTP_STATUS.NO_CONTENT_204).send(post);
 }));

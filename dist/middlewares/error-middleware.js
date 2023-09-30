@@ -10,10 +10,11 @@ const ErrorsFormatter = (e) => {
         field: e.path
     };
 };
+//{onlyFirstError: true}
 const ErrorMiddleware = (req, res, next) => {
     const result = (0, express_validator_1.validationResult)(req).formatWith(ErrorsFormatter);
     if (!result.isEmpty()) {
-        const errorsMessage = { errorsMessages: result.array({ onlyFirstError: true }) };
+        const errorsMessage = { errorsMessages: result.array() };
         return res.status(index_1.HTTP_STATUS.BAD_REQUEST_400).send(errorsMessage);
     }
     next();
