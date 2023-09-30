@@ -37,7 +37,7 @@ exports.blogsRepositories = {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield mongo_1.dbBlogs.findOne({ _id: new mongodb_1.ObjectId(id) });
             if (!res) {
-                return null;
+                return undefined;
             }
             return blogMapper(res);
         });

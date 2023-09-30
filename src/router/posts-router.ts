@@ -22,6 +22,9 @@ postsRouter.post('/',
     ErrorMiddleware,
     async (req: Request, res: Response) => {
         const newPosts = await postsRepositories.createNewPost(req.body.title, req.body.shortDescription, req.body.content, req.body.blogId,)
+        if (!blogsRepositories.findBlogById(newPosts.blogId)){
+            throw new Error('Not id')
+        }
         res.status(201).send(newPosts)
     })
 
