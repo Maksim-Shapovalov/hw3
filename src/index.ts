@@ -1,8 +1,7 @@
 import express, { Request, Response } from "express";
 import {blogsRouter} from "./router/blogs-router";
 import {postsRouter} from "./router/posts-router";
-import {testingRouter,} from "./repositories/DB";
-import {runDb} from "./db/mongo";
+import {runDb, testingRouter} from "./db/mongo";
 //testingRouter
 export const HTTP_STATUS = {
     OK_200: 200,

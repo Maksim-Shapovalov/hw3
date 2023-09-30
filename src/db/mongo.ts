@@ -1,13 +1,18 @@
-
 import {PostsDbModel} from "../model/posts-model";
 import {BlogsDbModels} from "../model/blogs-db-models";
 import {MongoClient} from "mongodb";
-import {Request, Response} from "express";
+import {Request, Response, Router} from "express";
 import {HTTP_STATUS} from "../index";
-import {testingRouter} from "../repositories/DB";
+import {config} from "dotenv"
+config()
+
 
 const mongoUri = process.env.MONGO_URI || "mongodb://localhost:27017"
+if (!mongoUri) {
+    throw new Error(`! Not URI`)
+}
 export const client = new MongoClient(mongoUri);
+
 
 
 const db = client.db("hw3")
@@ -24,7 +29,7 @@ export async function runDb () {
         await client.close()
     }
 }
-
+export const testingRouter = Router();
 testingRouter.delete('/', (req: Request, res: Response)=>{
     client.db("hw3").collection("blogs").deleteMany({})
     client.db("hw3").collection("posts").deleteMany({})

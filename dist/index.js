@@ -16,7 +16,6 @@ exports.port = exports.HTTP_STATUS = void 0;
 const express_1 = __importDefault(require("express"));
 const blogs_router_1 = require("./router/blogs-router");
 const posts_router_1 = require("./router/posts-router");
-const DB_1 = require("./repositories/DB");
 const mongo_1 = require("./db/mongo");
 //testingRouter
 exports.HTTP_STATUS = {
@@ -34,7 +33,7 @@ exports.port = process.env.PORT || 3000;
 app.use(express_1.default.json());
 app.use('/blogs', blogs_router_1.blogsRouter);
 app.use('/posts', posts_router_1.postsRouter);
-app.use('/testing/all-data', DB_1.testingRouter);
+app.use('/testing/all-data', mongo_1.testingRouter);
 const startApp = () => __awaiter(void 0, void 0, void 0, function* () {
     yield (0, mongo_1.runDb)();
     app.listen(exports.port, () => {
