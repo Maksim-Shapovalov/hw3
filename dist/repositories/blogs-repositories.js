@@ -36,6 +36,7 @@ exports.blogsRepositories = {
     findBlogById(id) {
         return __awaiter(this, void 0, void 0, function* () {
             const res = yield mongo_1.dbBlogs.findOne({ _id: new mongodb_1.ObjectId(id) });
+            console.log('this blog find id');
             if (!res) {
                 return undefined;
             }

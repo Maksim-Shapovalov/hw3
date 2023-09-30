@@ -18,8 +18,8 @@ export const ValidationPosts = () => ([
         .trim()
         .custom((value) => {
         const blogExist = blogsRepositories.findBlogById(value)
-
-        if (!blogExist){
+            console.log('error valid id blogs', blogExist)
+        if (!blogExist || Promise){
             throw new Error('Blog not exist')
         }
         return true

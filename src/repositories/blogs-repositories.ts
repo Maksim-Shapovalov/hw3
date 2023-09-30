@@ -27,6 +27,7 @@ export const blogsRepositories = {
 
     async findBlogById(id:string):Promise<BlogsOutputModel | undefined>{
         const res = await dbBlogs.findOne({_id: new ObjectId(id)})
+        console.log('this blog find id')
         if (!res) {
             return undefined
         }
