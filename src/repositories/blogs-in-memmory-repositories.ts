@@ -1,11 +1,11 @@
 import {client} from "./DB";
 import {BlogsDbModels, BlogsOutputModel} from "../model/blogs-db-models";
-import {db} from "../db/localDB";
+import {dbase} from "../db/localDB";
 
 export const blogsRepositories = {
 
     async AllBlogs( ):Promise<BlogsOutputModel[]> {
-            return db.blogs;
+            return dbase.blogs;
     },
 
 
@@ -20,12 +20,12 @@ export const blogsRepositories = {
             isMembership: false
         }
 
-        db.blogs.push(newBlog)
+        dbase.blogs.push(newBlog)
         return newBlog
     },
 
     async findBlogById(id:string):Promise<BlogsOutputModel | undefined>{
-        return  db.blogs.find(b => b.id === id)
+        return  dbase.blogs.find(b => b.id === id)
 
     },
 
@@ -36,13 +36,13 @@ export const blogsRepositories = {
 
     },
     async delBlogsById(id: string):Promise<boolean> {
-        const blogIndex = db.blogs.findIndex((b) => b.id === id)
+        const blogIndex = dbase.blogs.findIndex((b) => b.id === id)
 
         if(blogIndex === -1){
             return false
         }
 
-        db.blogs.splice(blogIndex, 1)
+        dbase.blogs.splice(blogIndex, 1)
         return true
     }
 

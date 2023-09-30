@@ -1,6 +1,6 @@
 import {BlogsDbModels, BlogsOutputModel} from "../model/blogs-db-models";
 
-export let db = {
+export let dbase = {
     blogs: [
         {
             id: "string",
