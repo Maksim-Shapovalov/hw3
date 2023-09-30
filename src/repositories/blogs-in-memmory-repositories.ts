@@ -1,6 +1,7 @@
-import {client} from "./DB";
+
 import {BlogsDbModels, BlogsOutputModel} from "../model/blogs-db-models";
 import {dbase} from "../db/localDB";
+import {client} from "../db/mongo";
 
 export const blogsRepositories = {
 

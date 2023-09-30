@@ -2,8 +2,7 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.ValidationPosts = void 0;
 const express_validator_1 = require("express-validator");
-const mongo_1 = require("../../db/mongo");
-const mongodb_1 = require("mongodb");
+const blogs_repositories_1 = require("../../repositories/blogs-repositories");
 const ValidationPosts = () => ([
     (0, express_validator_1.body)('title').trim().isString().notEmpty().isLength({ min: 1, max: 30 }),
     (0, express_validator_1.body)('shortDescription')
@@ -20,9 +19,9 @@ const ValidationPosts = () => ([
     (0, express_validator_1.body)('blogId')
         .trim()
         .custom((value) => {
-        const blogExist = mongo_1.dbBlogs.findOne({ _id: new mongodb_1.ObjectId(value) });
+        const blogExist = blogs_repositories_1.blogsRepositories.findBlogById(value);
         console.log('error valid id blogs', blogExist);
-        if (!blogExist) {
+        if (!blogExist || blogExist === undefined) {
             throw new Error('Blog not exist');
         }
         return true;
