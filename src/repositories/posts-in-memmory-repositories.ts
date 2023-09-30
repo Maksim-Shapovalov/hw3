@@ -25,7 +25,14 @@ export const postsRepositories = {
         return newPosts
     },
 
-    async findPostById(id: string):Promise<PostsOutputModel | undefined>{
+    async findPostById(id: string):Promise<{
+        blogName: string;
+        id: string;
+        shortDescription: string;
+        title: string;
+        blogId: string;
+        content: string
+    } | undefined>{
         const post =  dbase.posts.find(b => b.id === id)
         return post
 
