@@ -12,7 +12,7 @@ export const postsRouter = Router();
 
 postsRouter.get('/',
     async (req: Request, res: Response) => {
-        const posts = await postsRepositories.allPost()
+        const posts = await postsRepositories.allPost   ()
         res.status(HTTP_STATUS.OK_200).send(posts);
     })
 

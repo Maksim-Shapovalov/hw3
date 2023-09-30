@@ -18,7 +18,8 @@ export const postsRepositories = {
             content,
             blogId,
             blogName: findBlog!.name,
-            isMembership: false
+            isMembership: false,
+            createdAt: new Date().toISOString(),
         }
 
         const res = await dbPosts.insertOne({...newPosts})

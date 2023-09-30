@@ -26,5 +26,6 @@ export const ValidationPosts = () => ([
     })
         .notEmpty()
         .isString()
-        .withMessage('invalid blogId')]
+        .withMessage('invalid blogId'),
+    body()]
 )
