@@ -37,6 +37,9 @@ export const postsRepositories = {
 
     async updatePostById(id: string, title: string, shortDescription: string, content: string, blogId: string): Promise<boolean> {
         const res = await dbPosts.updateOne({_id: new ObjectId(id)}, {$set: {title,shortDescription, content, blogId}})
+        if (res.matchedCount !== 1){
+            return false
+        }
         return res.matchedCount === 1
     },
 
